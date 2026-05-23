@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact & Find Us | โพธิ์แก้ว นวดเพื่อสุขภาพ</title>
+  <meta name="description" content="Find Pho Kaew Massage in Pran Buri, Hua Hin. Address, phone, map and directions." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+Thai:wght@300;400;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .contact-hero-bg {
+      background:
+        linear-gradient(to bottom, rgba(26,18,9,0.7), rgba(26,18,9,0.9)),
+        url('https://images.unsplash.com/photo-1610641818989-c2051b5e2cfd?w=1400&q=80') center/cover;
+    }
+    .contact-intro-strip {
+      background: var(--cream-mid);
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+    .contact-intro-strip p {
+      max-width: 620px;
+      margin: 0 auto;
+      font-size: 1.05rem;
+      color: var(--text-soft);
+    }
+    .contact-highlights {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+    .contact-highlight {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .contact-highlight .ch-icon { font-size: 1.6rem; }
+
+    /* Map section full width */
+    .map-full-section {
+      padding: 5rem 0 0;
+    }
+    .map-full-section h2 { color: var(--text); margin-bottom: 1rem; }
+    .map-full-iframe {
+      width: 100%;
+      height: 480px;
+      border: none;
+      display: block;
+      margin-top: 2rem;
+    }
+    .map-cta-bar {
+      background: var(--dark);
+      padding: 1.2rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .map-cta-bar span {
+      font-size: 0.82rem;
+      color: rgba(240,232,214,0.6);
+      letter-spacing: 0.06em;
+    }
+    .map-cta-bar a {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+      text-transform: uppercase;
+      transition: letter-spacing 0.2s;
+    }
+    .map-cta-bar a:hover { letter-spacing: 0.2em; }
+
+    /* Contact detail cards */
+    .contact-detail-section {
+      padding: 6rem 2rem;
+    }
+    .contact-detail-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .cdetail-card {
+      background: var(--white);
+      border: 1px solid rgba(196,154,60,0.15);
+      padding: 2.5rem 2rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .cdetail-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-4px);
+    }
+    .cdetail-icon { font-size: 2rem; }
+    .cdetail-card h4 {
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+      margin: 0;
+    }
+    .cdetail-card p, .cdetail-card a {
+      font-size: 0.95rem;
+      color: var(--text-soft);
+      margin: 0;
+      line-height: 1.6;
+    }
+    .cdetail-card a { color: var(--gold); font-weight: 600; }
+    .cdetail-card .btn { margin-top: 0.5rem; }
+
+    /* Directions */
+    .directions-section {
+      background: var(--dark);
+      padding: 5rem 0;
+    }
+    .directions-inner { max-width: 780px; }
+    .directions-inner h3 { color: var(--cream); margin-bottom: 2rem; font-size: 1.6rem; }
+    .directions-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+    .directions-list li {
+      color: rgba(240,232,214,0.7);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      padding-left: 0.5rem;
+    }
+
+    /* Hours banner */
+    .hours-banner {
+      background: linear-gradient(135deg, var(--teak), var(--dark-mid));
+      padding: 4rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hours-banner::before {
+      content: '✦';
+      position: absolute;
+      font-size: 18rem;
+      color: rgba(196,154,60,0.04);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+    .hours-banner h3 {
+      color: var(--cream);
+      font-size: clamp(1.5rem, 3vw, 2.4rem);
+      margin-bottom: 0.5rem;
+    }
+    .hours-banner .hours-time {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 5vw, 3.8rem);
+      color: var(--gold-light);
+      letter-spacing: 0.04em;
+      display: block;
+      margin: 0.5rem 0 1.5rem;
+    }
+    .hours-banner p {
+      color: rgba(240,232,214,0.6);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 900px) {
+      .contact-detail-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .contact-detail-grid { grid-template-columns: 1fr; }
+      .map-full-iframe { height: 320px; }
+      .contact-highlights { gap: 1.5rem; }
+      .map-cta-bar { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <a href="index.html" class="nav-logo">
+      <span class="logo-thai">โพธิ์แก้ว</span>
+      <span class="logo-en">PHO KAEW</span>
+      <span class="certified-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>Certified · Ministry of Public Health</span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero-bg contact-hero-bg"></div>
+    <div class="page-hero-content">
+      <p class="section-label center">ติดต่อเรา · Get in Touch</p>
+      <h1>Find<br><em>Pho Kaew</em></h1>
+    </div>
+  </section>
+
+  <!-- INTRO STRIP -->
+  <section class="contact-intro-strip">
+    <p>We welcome walk-ins daily — no appointment needed. If you'd like to reserve a time or have questions about our treatments, simply call or message us on Line.</p>
+    <div class="contact-highlights">
+      <div class="contact-highlight">
+        <span class="ch-icon">🕙</span>
+        <span>Open Every Day</span>
+        <span>10 AM – 10 PM</span>
+      </div>
+      <div class="contact-highlight">
+        <span class="ch-icon">🚗</span>
+        <span>Free Parking</span>
+        <span>On-site</span>
+      </div>
+      <div class="contact-highlight">
+        <span class="ch-icon">📞</span>
+        <span>Walk-ins Welcome</span>
+        <span>No booking required</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT DETAIL CARDS -->
+  <section class="contact-detail-section container">
+    <p class="section-label center">Reach Us</p>
+    <h2 class="center">Get in Touch</h2>
+    <div class="contact-detail-grid">
+      <div class="cdetail-card">
+        <div class="cdetail-icon">📍</div>
+        <h4>Address</h4>
+        <p>392 Khao Noi<br>Pran Buri District<br>Prachuap Khiri Khan 77120<br>Thailand</p>
+        <a href="https://maps.app.goo.gl/YKZZRNnknq4Y9Bok7" target="_blank" rel="noopener" class="address-map-link" style="margin-top:0.3rem;">📍 Open in Google Maps →</a>
+      </div>
+      <div class="cdetail-card">
+        <div class="cdetail-icon">📞</div>
+        <h4>Phone & Line</h4>
+        <p><a href="tel:+66818796538">081-879-6538</a><br>Line ID: <strong>Phckaew6538</strong></p>
+        <a href="tel:+66818796538" class="btn btn-gold" style="margin-top:1rem;">☎ Call Now</a>
+      </div>
+      <div class="cdetail-card">
+        <div class="cdetail-icon">🕙</div>
+        <h4>Opening Hours</h4>
+        <p>Open Every Day<br><strong style="color:var(--text);">10:00 AM – 10:00 PM</strong><br>No appointment needed</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOURS BANNER -->
+  <section class="hours-banner">
+    <h3>We are open</h3>
+    <span class="hours-time">10:00 – 22:00</span>
+    <p>Every day of the week, including public holidays</p>
+  </section>
+
+  <!-- MAP FULL WIDTH -->
+  <section class="map-full-section">
+    <div class="container">
+      <p class="section-label center">Location</p>
+      <h2 class="center">Find Us in <em>Pran Buri</em></h2>
+    </div>
+    <iframe
+      class="map-full-iframe"
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.5!2d99.9!3d12.4!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30fc4df362405185%3A0xb15abb7a3018c726!2z4Lii4Liz4LiY4Lit4LiB4LmA4Lin4Liy4LiU!5e0!3m2!1sen!2sth!4v1700000000000"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      title="Pho Kaew Massage location map">
+    </iframe>
+    <div class="map-cta-bar">
+      <span>392 Khao Noi Road, Pran Buri District, Prachuap Khiri Khan 77120, Thailand</span>
+      <a href="https://maps.app.goo.gl/YKZZRNnknq4Y9Bok7" target="_blank" rel="noopener">Open in Google Maps →</a>
+    </div>
+  </section>
+
+  <!-- DIRECTIONS -->
+  <section class="directions-section">
+    <div class="container">
+      <div class="directions-inner">
+        <p class="section-label">Getting Here</p>
+        <h3>How to find us</h3>
+        <ul class="directions-list">
+          <li>📍 We are located at 392 Khao Noi Road in Pran Buri, approximately 30 km south of Hua Hin town.</li>
+          <li>🚗 From Hua Hin: Take Highway 4 south toward Pran Buri (approx. 25–30 min drive).</li>
+          <li>🛺 Tuk-tuks and taxis are available from central Hua Hin and Pran Buri market.</li>
+          <li>🅿️ Free parking is available directly in front of the centre — easy access, no stress.</li>
+          <li>📞 Not sure? Call us at <a href="tel:+66818796538" style="color:var(--gold-light);font-weight:600;">081-879-6538</a> and we'll guide you.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="cta-banner">
+    <div class="cta-inner container">
+      <h2>Ready to restore your balance?</h2>
+      <p>Walk in or call ahead — we welcome you daily from 10 AM to 10 PM</p>
+      <a href="tel:+66818796538" class="btn btn-gold">☎ Call Now: 081-879-6538</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <span class="logo-thai">โพธิ์แก้ว</span>
+        <span class="logo-en">PHO KAEW MASSAGE</span>
+        <p>นวดเพื่อสุขภาพ · Healing for body & soul</p>
+      </div>
+      <div class="footer-links">
+        <h4>Navigate</h4>
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-contact">
+        <h4>Contact</h4>
+        <p>392 Khao Noi, Pran Buri District<br>Prachuap Khiri Khan 77120</p>
+        <a href="https://maps.app.goo.gl/YKZZRNnknq4Y9Bok7" target="_blank" rel="noopener" class="address-map-link">📍 Open in Google Maps →</a>
+        <p>Tel: <a href="tel:+66818796538">081-879-6538</a></p>
+        <p>Line: Phckaew6538</p>
+        <p>Open: Daily 10:00 – 22:00</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 โพธิ์แก้ว นวดเพื่อสุขภาพ · Pho Kaew Massage · Hua Hin, Thailand</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
