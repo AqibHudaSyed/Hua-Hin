@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact & Find Us | โพธิ์แก้ว นวดเพื่อสุขภาพ</title>
-  <meta name="description" content="Find Pho Kaew Massage in Pran Buri, Hua Hin. Address, phone, map and directions." />
+  <meta name="description" content="Find PhoKaew Massage for Health & Wellness in Pran Buri, Hua Hin. Address, phone, map and directions." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+Thai:wght@300;400;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css" />
@@ -116,14 +116,24 @@
       font-weight: 500;
       margin: 0;
     }
-    .cdetail-card p, .cdetail-card a {
+    .cdetail-card p, .cdetail-card a:not(.btn) {
       font-size: 0.95rem;
       color: var(--text-soft);
       margin: 0;
       line-height: 1.6;
     }
-    .cdetail-card a { color: var(--gold); font-weight: 600; }
+    .cdetail-card a:not(.btn) { color: var(--gold); font-weight: 600; }
     .cdetail-card .btn { margin-top: 0.5rem; }
+    .cdetail-card .btn-gold {
+      background: #C49A3C;
+      color: #1A1209;
+      border: 1px solid #C49A3C;
+      opacity: 1;
+    }
+    .cdetail-card .btn-gold:hover {
+      background: #E8C96A;
+      border-color: #E8C96A;
+    }
 
     /* Directions */
     .directions-section {
@@ -194,8 +204,8 @@
 
   <nav class="nav" id="nav">
     <a href="index.html" class="nav-logo">
-      <span class="logo-thai">โพธิ์แก้ว</span>
-      <span class="logo-en">PHO KAEW</span>
+      <span class="logo-thai">โพธิ์แก้ว นวดเพื่อสุขภาพ</span>
+      <span class="logo-en">PHOKAEW MASSAGE FOR HEALTH & WELLNESS</span>
       <span class="certified-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>Certified · Ministry of Public Health</span>
     </a>
     <button class="nav-toggle" id="navToggle" aria-label="Menu">
@@ -214,7 +224,7 @@
     <div class="page-hero-bg contact-hero-bg"></div>
     <div class="page-hero-content">
       <p class="section-label center">ติดต่อเรา · Get in Touch</p>
-      <h1>Find<br><em>Pho Kaew</em></h1>
+      <h1>Find<br><em>PhoKaew Massage for Health & Wellness</em></h1>
     </div>
   </section>
 
@@ -254,7 +264,7 @@
       <div class="cdetail-card">
         <div class="cdetail-icon">📞</div>
         <h4>Phone & Line</h4>
-        <p><a href="tel:+66818796538">081-879-6538</a><br>Line ID: <strong>Phckaew6538</strong></p>
+        <p><a href="tel:+66818796538">+66 81-879-6538</a><br>Line ID: <strong>Phokaew6538</strong></p>
         <a href="tel:+66818796538" class="btn btn-gold" style="margin-top:1rem;">☎ Call Now</a>
       </div>
       <div class="cdetail-card">
@@ -284,7 +294,7 @@
       allowfullscreen=""
       loading="lazy"
       referrerpolicy="no-referrer-when-downgrade"
-      title="Pho Kaew Massage location map">
+      title="PhoKaew Massage for Health & Wellness location map">
     </iframe>
     <div class="map-cta-bar">
       <span>392 Khao Noi Road, Pran Buri District, Prachuap Khiri Khan 77120, Thailand</span>
@@ -303,7 +313,7 @@
           <li>🚗 From Hua Hin: Take Highway 4 south toward Pran Buri (approx. 25–30 min drive).</li>
           <li>🛺 Tuk-tuks and taxis are available from central Hua Hin and Pran Buri market.</li>
           <li>🅿️ Free parking is available directly in front of the centre — easy access, no stress.</li>
-          <li>📞 Not sure? Call us at <a href="tel:+66818796538" style="color:var(--gold-light);font-weight:600;">081-879-6538</a> and we'll guide you.</li>
+          <li>📞 Not sure? Call us at <a href="tel:+66818796538" style="color:var(--gold-light);font-weight:600;">+66 81-879-6538</a> and we'll guide you.</li>
         </ul>
       </div>
     </div>
@@ -314,7 +324,7 @@
     <div class="cta-inner container">
       <h2>Ready to restore your balance?</h2>
       <p>Walk in or call ahead — we welcome you daily from 10 AM to 10 PM</p>
-      <a href="tel:+66818796538" class="btn btn-gold">☎ Call Now: 081-879-6538</a>
+      <a href="tel:+66818796538" class="btn btn-gold">☎ Call Now: +66 81-879-6538</a>
     </div>
   </section>
 
@@ -322,8 +332,8 @@
   <footer class="footer">
     <div class="container footer-grid">
       <div class="footer-brand">
-        <span class="logo-thai">โพธิ์แก้ว</span>
-        <span class="logo-en">PHO KAEW MASSAGE</span>
+        <span class="logo-thai">โพธิ์แก้ว นวดเพื่อสุขภาพ</span>
+        <span class="logo-en">PHOKAEW MASSAGE FOR HEALTH & WELLNESS</span>
         <p>นวดเพื่อสุขภาพ · Healing for body & soul</p>
       </div>
       <div class="footer-links">
@@ -337,13 +347,13 @@
         <h4>Contact</h4>
         <p>392 Khao Noi, Pran Buri District<br>Prachuap Khiri Khan 77120</p>
         <a href="https://maps.app.goo.gl/YKZZRNnknq4Y9Bok7" target="_blank" rel="noopener" class="address-map-link">📍 Open in Google Maps →</a>
-        <p>Tel: <a href="tel:+66818796538">081-879-6538</a></p>
-        <p>Line: Phckaew6538</p>
+        <p>Tel: <a href="tel:+66818796538">+66 81-879-6538</a></p>
+        <p>Line: Phokaew6538</p>
         <p>Open: Daily 10:00 – 22:00</p>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2025 โพธิ์แก้ว นวดเพื่อสุขภาพ · Pho Kaew Massage · Hua Hin, Thailand</p>
+      <p>© 2025 โพธิ์แก้ว นวดเพื่อสุขภาพ · PhoKaew Massage for Health & Wellness · Hua Hin, Thailand</p>
     </div>
   </footer>
 
