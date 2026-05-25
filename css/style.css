@@ -1479,36 +1479,52 @@ p:last-child { margin-bottom: 0; }
 }
 
 /* ============================================================
-   HERO SECTION: SCROLL INDICATOR CENTERING FIX
+   HERO SECTION: ABSOLUTE CRITICAL SCROLL CENTERING FIX
    ============================================================ */
 
+/* Main section ko target karna taaki coordinates page ke center se calculate hon */
+section.hero {
+  position: relative;
+}
+
+/* Scroll wrapper ko pure screen framework ke exact center me lock karna */
 .scroll-indicator-wrap {
   position: absolute;
-  bottom: 20px;            /* Niche se distance balance karne ke liye */
-  left: 50%;               /* Screen ka exact center point handle karne ke liye */
-  transform: translateX(-50%); /* Asli element width ka 50% left pull karke absolute center balance */
+  bottom: 25px;              /* Niche se distance standard position */
+  left: 50%;                 /* Pure page width ka exact mathematically half */
+  transform: translateX(-50%); /* Zero-error element width offset correction */
   text-align: center;
-  z-index: 10;
+  z-index: 99;               /* Buttons ke upar rahega */
   display: flex;
   flex-direction: column;
   align-items: center;
+  pointer-events: none;      /* Phone par button clicks ko block nahi karega */
 }
 
 .scroll-text {
-  font-size: 0.75rem;
+  font-size: 0.7rem;         /* Chota aur elegant font jaisa screenshot me hai */
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.25em;    /* Alphabet spacing balance */
   color: var(--gold);
   font-weight: 500;
   opacity: 0.8;
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
-/* Agar niche vertical gold line bani hui hai toh uske liye support */
 .scroll-line {
   width: 1px;
-  height: 40px;
+  height: 35px;              /* Standard length for desktop/tab */
   background: var(--gold);
-  opacity: 0.5;
+  opacity: 0.4;
+}
+
+/* --- RESPONSIEV BREAKPOINTS (FOR MOBILE & TAB) --- */
+@media (max-width: 768px) {
+  .scroll-indicator-wrap {
+    bottom: 15px;            /* Mobile me buttons ke niche safe positioning */
+  }
+  .scroll-line {
+    height: 22px;            /* Mobile screen par line halke se choti taaki overlap na ho */
+  }
 }
