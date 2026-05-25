@@ -243,20 +243,7 @@ p:last-child { margin-bottom: 0; }
 }
 .hero-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
-.hero-scroll {
-  position: absolute;
-  bottom: 2.5rem;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-  width: max-content;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  z-index: 2;
-  animation: fadeUpScroll 1.4s 0.6s ease both;
-}
+
 
 @keyframes fadeUpScroll {
   from { opacity: 0; bottom: 1.5rem; }
@@ -272,7 +259,6 @@ p:last-child { margin-bottom: 0; }
   width: 1px;
   height: 40px;
   background: linear-gradient(to bottom, var(--gold), transparent);
-  animation: scrollPulse 2s infinite;
 }
 @keyframes scrollPulse {
   0%, 100% { opacity: 0.4; transform: scaleY(1); }
