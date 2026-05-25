@@ -196,6 +196,12 @@ p:last-child { margin-bottom: 0; }
   z-index: 2;
   padding: 0 2rem;
   animation: fadeUp 1.2s ease both;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(30px); }
@@ -241,7 +247,21 @@ p:last-child { margin-bottom: 0; }
   margin-bottom: 2.5rem;
   font-weight: 300;
 }
-.hero-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.hero-cta {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+.hero-cta + .scroll-indicator-wrap {
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+}
 
 
 
@@ -1475,16 +1495,15 @@ section.hero {
 
 /* Scroll indicator structure ab page base par chalega */
 .scroll-indicator-wrap {
-  position: absolute;
-  bottom: 20px;               /* Niche se precise distance matching */
-  left: 50%;                 /* Pure page browser width ka absolute mathematically center */
-  transform: translateX(-50%); /* Asli coordinate framework calculation error handle karne ke liye push */
+  position: relative;
   text-align: center;
-  z-index: 10;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 1.5rem;
   pointer-events: none;
+  width: 100%;
+  justify-content: center;
 }
 
 .scroll-text {
