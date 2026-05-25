@@ -404,87 +404,90 @@ document.querySelectorAll('.service-card, .treatment-card, .contact-card').forEa
 });
 
 // ============================================================
-// GOOGLE SHEETS LIVE PRICING ENGINE (DIRECT NO-STEIN VERSION)
+// FULLY DYNAMIC GOOGLE SHEETS ENGINE (AUTO ROW ADD/REMOVE)
 // ============================================================
 
-// Yeh aapki public Google Sheet ka direct data link hai
-const SHEET_API_URL = 'https://docs.google.com/spreadsheets/d/1MPwqE6CKjFnKGNRQvDCMfwxqVkw1u6al-aNokKYhZ4M/gviz/tq?tqx=out:json'; 
+const RANDOM_TIME = new Date().getTime();
+const SHEET_API_URL = `https://docs.google.com/spreadsheets/d/1MPwqE6CKjFnKGNRQvDCMfwxqVkw1u6al-aNokKYhZ4M/gviz/tq?tqx=out:json&cache_bust=${RANDOM_TIME}`;
 
-async function loadServicesPrices() {
-  // Pehle check karte hain ki hum sahi me services page par hain ya nahi
-  // Agar table-thai-1hr id page par nahi hogi, toh yeh script aage nahi chalegi (safe zone)
-  if (!document.getElementById('table-thai-1hr')) return;
+async function loadDynamicServices() {
+  const tableBody = document.getElementById('dynamic-services-body');
+  if (!tableBody) return;
 
   try {
     const response = await fetch(SHEET_API_URL);
     const text = await response.text();
     
-    // Google Sheets ka response secure format me hota hai.
-    // Hamein pure text me se bracket { ... } ke andar ka asli JSON data nikalna padega.
     const jsonString = text.substring(text.indexOf("{"), text.lastIndexOf("}") + 1);
     const jsonResult = JSON.parse(jsonString);
     
     const rows = jsonResult.table.rows;
-    const prices = {};
+    let htmlContent = '';
+    let isHighlight = false; // Alternating rows ke premium design ke liye
 
-    // Rows par loop chalakar sara data clean format me nikalna
     rows.forEach(row => {
-      // row.c[0] = id ka column, row.c[2] = 1hr ka price, row.c[3] = 1.5hr ka price
       const id = row.c[0] ? row.c[0].v : null;
-      if (id) {
-        prices[id] = {
-          p1: row.c[2] ? row.c[2].v : '—',
-          p15: row.c[3] ? row.c[3].v : '—'
-        };
+      const rawTreatment = row.c[1] ? row.c[1].v : '';
+      const p1 = row.c[2] ? row.c[2].v : '—';
+      const p15 = row.c[3] ? row.c[3].v : '—';
+
+      // Agar ID 'id' (header) hai ya poori row khali hai, toh skip karo
+      if (!id || id === 'id') return;
+
+      // Body Scrub ke liye special static handle (Kyunki isme call option hai)
+      if (id === 'body_scrub' || id === 'scrub') {
+        htmlContent += `
+          <tr class="${isHighlight ? 'highlight' : ''}">
+            <td>
+              <span class="th-name">สครับผิว</span>
+              <span class="en-name">Body Scrub</span>
+            </td>
+            <td colspan="2" class="ask-price">
+              <a href="tel:+66818796538" style="color:var(--gold);text-decoration:none;font-weight:600;">📞 Call Us for Pricing</a>
+            </td>
+          </tr>
+        `;
+        isHighlight = !isHighlight;
+        return;
       }
+
+      // Baaki normal massages ke liye Thai aur English name ko '+' ya break points se split karna
+      // Client sheet me bas aise likhegi: "นวดไทย / Thai Massage" ya "นวดไทย + ยาหม่อง / Thai Massage + Balm"
+      let thaiName = rawTreatment;
+      let engName = '';
+      
+      if (rawTreatment.includes('/')) {
+        const parts = rawTreatment.split('/');
+        thaiName = parts[0].trim();
+        engName = parts[1].trim();
+      } else {
+        // Agar galti se client ne sirf ek hi naam likha slash (/) ke bina
+        thaiName = rawTreatment;
+        engName = id.replace('_', ' ').toUpperCase(); 
+      }
+
+      // Ek naya dynamic Row framework taiyar karna
+      htmlContent += `
+        <tr class="${isHighlight ? 'highlight' : ''}">
+          <td>
+            <span class="th-name">${thaiName}</span>
+            <span class="en-name">${engName}</span>
+          </td>
+          <td>${p1 !== '—' && typeof p1 === 'number' ? '฿' + p1 : p1}</td>
+          <td>${p15 !== '—' && typeof p15 === 'number' ? '฿' + p15 : p15}</td>
+        </tr>
+      `;
+
+      isHighlight = !isHighlight; // Agli row ka background color badalne ke liye
     });
 
-    // --- Ek-ek karke HTML Table ke andar live prices push karna ---
-    
-    // 1. Thai Massage
-    if (prices['thai']) {
-      document.getElementById('table-thai-1hr').innerText = '฿' + prices['thai'].p1;
-      document.getElementById('table-thai-15hr').innerText = '฿' + prices['thai'].p15;
-    }
-    // 2. Thai Massage + Balm
-    if (prices['thai_balm']) {
-      document.getElementById('table-thaibalm-1hr').innerText = '฿' + prices['thai_balm'].p1;
-      document.getElementById('table-thaibalm-15hr').innerText = '฿' + prices['thai_balm'].p15;
-    }
-    // 3. Oil Massage
-    if (prices['oil']) {
-      document.getElementById('table-oil-1hr').innerText = '฿' + prices['oil'].p1;
-      document.getElementById('table-oil-15hr').innerText = '฿' + prices['oil'].p15;
-    }
-    // 4. Aroma Massage
-    if (prices['aroma']) {
-      document.getElementById('table-aroma-1hr').innerText = '฿' + prices['aroma'].p1;
-      document.getElementById('table-aroma-15hr').innerText = '฿' + prices['aroma'].p15;
-    }
-    // 5. Coconut Oil Massage
-    if (prices['coconut']) {
-      document.getElementById('table-coconut-1hr').innerText = '฿' + prices['coconut'].p1;
-      document.getElementById('table-coconut-15hr').innerText = '฿' + prices['coconut'].p15;
-    }
-    // 6. Aloe Vera Massage
-    if (prices['aloe']) {
-      document.getElementById('table-aloe-1hr').innerText = '฿' + prices['aloe'].p1;
-      document.getElementById('table-aloe-15hr').innerText = '฿' + prices['aloe'].p15;
-    }
-    // 7. Neck, Shoulder & Back Massage
-    if (prices['neck']) {
-      document.getElementById('table-neck-1hr').innerText = '฿' + prices['neck'].p1;
-      document.getElementById('table-neck-15hr').innerText = '฿' + prices['neck'].p15;
-    }
-    // 8. Foot Massage
-    if (prices['foot']) {
-      document.getElementById('table-foot-1hr').innerText = '฿' + prices['foot'].p1;
-    }
+    // Khali table me saara dynamic content ek baar me inject karna
+    tableBody.innerHTML = htmlContent;
 
   } catch (error) {
-    console.warn("Google Sheet sync temporary fail hua, local HTML fallback chal raha hai:", error);
+    console.warn("Dynamic Sync failed, showing error message.", error);
+    tableBody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:red;">Unable to load pricing. Please try again later.</td></tr>`;
   }
 }
 
-// Jaise hi HTML content load ho, engine run kar do
-window.addEventListener('DOMContentLoaded', loadServicesPrices);
+window.addEventListener('DOMContentLoaded', loadDynamicServices);
