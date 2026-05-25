@@ -1456,3 +1456,24 @@ p:last-child { margin-bottom: 0; }
 .reviews-track-outer {
   overflow: hidden;
 }
+/* ============================================================
+   INDEX PAGE: CHECK PRICE LINK HOVER EFFECTS
+   ============================================================ */
+
+/* Normal State: Link kaisa dikhega */
+.check-price-link {
+  color: var(--gold); /* Aapka gold color maintain rahega */
+  text-decoration: none; /* Pehle bina line ke clean dikhega */
+  font-weight: 500;
+  display: inline-block;
+  transition: all 0.3s ease; /* Smooth effect ke liye transition */
+  border-bottom: 1px dashed transparent; /* Pehle se invisible border takki jhatka na lage text ko */
+  padding-bottom: 2px;
+}
+
+/* Hover State: Mouse le jaane par kya badlaav hoga */
+.check-price-link:hover {
+  color: var(--gold-light, #f1e4c3); /* thoda bright/light gold chamkega */
+  border-bottom: 1px solid var(--gold); /* niche ek solid premium underline aa jayegi */
+  transform: translateX(4px); /* Teer (→) thoda sa right side slide hoga makkhan ki tarah */
+}
