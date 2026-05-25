@@ -1479,20 +1479,22 @@ p:last-child { margin-bottom: 0; }
 }
 
 /* ============================================================
-   HERO SECTION: EXACT COMPACT SCROLL ALIGNMENT
+   HERO SECTION: ZERO-ERROR HORIZONTAL CENTER LOCK
    ============================================================ */
 
+/* Pure block ko anchors coordinate system me map karna */
 section.hero {
   position: relative;
 }
 
+/* Scroll indicator structure ab page base par chalega */
 .scroll-indicator-wrap {
   position: absolute;
-  bottom: 20px;               /* Niche se distance kam kara */
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: 20px;               /* Niche se precise distance matching */
+  left: 50%;                 /* Pure page browser width ka absolute mathematically center */
+  transform: translateX(-50%); /* Asli coordinate framework calculation error handle karne ke liye push */
   text-align: center;
-  z-index: 99;
+  z-index: 10;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1500,29 +1502,26 @@ section.hero {
 }
 
 .scroll-text {
-  font-size: 0.62rem;         /* Font size ekdam chota aur compact jaisa aapko chahiye */
+  font-size: 0.65rem;         /* Chota aur elegant font jaisa screenshot me hai */
   text-transform: uppercase;
-  letter-spacing: 0.18em;     /* Spacing tight kari exact matching ke liye */
+  letter-spacing: 0.18em;     /* Spacing tight exact standard design pattern balance */
   color: var(--gold);
   font-weight: 500;
-  opacity: 0.75;              /* Subtle/halka look dene ke liye */
+  opacity: 0.75;
   display: block;
-  margin-bottom: 4px;         /* Text aur choti line ke beech ka gap */
+  margin-bottom: 6px;
 }
 
 .scroll-line {
   width: 1px;
-  height: 18px;               /* LINE KI HEIGHT POORI TARAHA SE CHOTI (18px) KAR DI */
+  height: 25px;              /* Standard compact length exact vertical gap lock */
   background: var(--gold);
-  opacity: 0.35;              /* Halka look taaki extra lamba na lage */
+  opacity: 0.4;
 }
 
-/* --- MOBILE RESPONSIVE CONTROL --- */
+/* Mobile responsive ke liye distance control */
 @media (max-width: 768px) {
   .scroll-indicator-wrap {
-    bottom: 12px;             /* Mobile screen par aur unique positioning */
-  }
-  .scroll-line {
-    height: 15px;             /* Mobile par aur thodi compact */
+    bottom: 15px;            /* Mobile screen axis par halka unique positioning */
   }
 }
