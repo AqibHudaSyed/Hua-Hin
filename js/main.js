@@ -404,7 +404,7 @@ document.querySelectorAll('.service-card, .treatment-card, .contact-card').forEa
 });
 
 // ============================================================
-// FULLY DYNAMIC GOOGLE SHEETS ENGINE (AUTO ROW ADD/REMOVE)
+// FULLY DYNAMIC GOOGLE SHEETS ENGINE (STRICT BODY SCRUB ONLY)
 // ============================================================
 
 const RANDOM_TIME = new Date().getTime();
@@ -423,37 +423,24 @@ async function loadDynamicServices() {
     
     const rows = jsonResult.table.rows;
     let htmlContent = '';
-    let isHighlight = false; // Alternating rows ke premium design ke liye
+    let isHighlight = false;
 
     rows.forEach(row => {
-      const id = row.c[0] ? row.c[0].v : null;
-      const rawTreatment = row.c[1] ? row.c[1].v : '';
-      const p1 = row.c[2] ? row.c[2].v : '—';
-      const p15 = row.c[3] ? row.c[3].v : '—';
+      const id = row.c[0] ? String(row.c[0].v).trim().toLowerCase() : '';
+      const rawTreatment = row.c[1] ? String(row.c[1].v).trim() : '';
+      
+      // Strict Check: null, empty string, ya string 'null' ko '—' me convert karna
+      let p1 = row.c[2] ? row.c[2].v : '—';
+      let p15 = row.c[3] ? row.c[3].v : '—';
+      
+      if (p1 === null || p1 === 'null' || p1 === '') p1 = '—';
+      if (p15 === null || p15 === 'null' || p15 === '') p15 = '—';
 
-      // Agar ID 'id' (header) hai ya poori row khali hai, toh skip karo
-      if (!id || id === 'id') return;
+      // Header row ya completely khali row ko skip karein
+      if (!id || id === 'id' || rawTreatment === '') return;
 
-      // Body Scrub ke liye special static handle (Kyunki isme call option hai)
-      if (id === 'body_scrub' || id === 'scrub') {
-        htmlContent += `
-          <tr class="${isHighlight ? 'highlight' : ''}">
-            <td>
-              <span class="th-name">สครับผิว</span>
-              <span class="en-name">Body Scrub</span>
-            </td>
-            <td colspan="2" class="ask-price">
-              <a href="tel:+66818796538" style="color:var(--gold);text-decoration:none;font-weight:600;">📞 Call Us for Pricing</a>
-            </td>
-          </tr>
-        `;
-        isHighlight = !isHighlight;
-        return;
-      }
-
-      // Baaki normal massages ke liye Thai aur English name ko '+' ya break points se split karna
-      // Client sheet me bas aise likhegi: "นวดไทย / Thai Massage" ya "นวดไทย + ยาหม่อง / Thai Massage + Balm"
-      let thaiName = rawTreatment;
+      // --- TEXT SPLIT LOGIC (Thai upar, English niche) ---
+      let thaiName = '';
       let engName = '';
       
       if (rawTreatment.includes('/')) {
@@ -461,32 +448,51 @@ async function loadDynamicServices() {
         thaiName = parts[0].trim();
         engName = parts[1].trim();
       } else {
-        // Agar galti se client ne sirf ek hi naam likha slash (/) ke bina
         thaiName = rawTreatment;
-        engName = id.replace('_', ' ').toUpperCase(); 
+        engName = id.toUpperCase().replace('_', ' ');
       }
 
-      // Ek naya dynamic Row framework taiyar karna
+      // --- STRICT SPECIFIC BODY SCRUB CHECK ---
+      // Sirf jab ID 'body_scrub'/'scrub' ho, YA English name exact 'body scrub' ho, tabhi call option dikhega
+      if (id === 'body_scrub' || id === 'scrub' || engName.toLowerCase() === 'body scrub') {
+        htmlContent += `
+          <tr class="${isHighlight ? 'highlight' : ''}">
+            <td>
+              <span class="th-name">${thaiName}</span>
+              <span class="en-name">${engName}</span>
+            </td>
+            <td colspan="2" class="ask-price" style="text-align: right; padding-right: 2rem;">
+              <a href="tel:+66818796538" style="color:var(--gold); text-decoration:none; font-weight:600; letter-spacing:0.05em;">📞 Call Us for Pricing</a>
+            </td>
+          </tr>
+        `;
+        isHighlight = !isHighlight;
+        return; // Isi row se break karke aage badh jao
+      }
+
+      // --- OTHERS NORMAL MASSAGES & SCRUBS FORMATTING ---
+      const displayP1 = (p1 !== '—') ? '฿' + p1 : p1;
+      const displayP15 = (p15 !== '—') ? '฿' + p15 : p15;
+
       htmlContent += `
         <tr class="${isHighlight ? 'highlight' : ''}">
           <td>
             <span class="th-name">${thaiName}</span>
             <span class="en-name">${engName}</span>
           </td>
-          <td>${p1 !== '—' && typeof p1 === 'number' ? '฿' + p1 : p1}</td>
-          <td>${p15 !== '—' && typeof p15 === 'number' ? '฿' + p15 : p15}</td>
+          <td>${displayP1}</td>
+          <td>${displayP15}</td>
         </tr>
       `;
 
-      isHighlight = !isHighlight; // Agli row ka background color badalne ke liye
+      isHighlight = !isHighlight;
     });
 
-    // Khali table me saara dynamic content ek baar me inject karna
     tableBody.innerHTML = htmlContent;
 
   } catch (error) {
-    console.warn("Dynamic Sync failed, showing error message.", error);
-    tableBody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:red;">Unable to load pricing. Please try again later.</td></tr>`;
+    console.warn("Dynamic Sync failed:", error);
+    tableBody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:red; padding: 2rem;">Unable to load pricing. Please try again later.</td></tr>`;
   }
 }
 
