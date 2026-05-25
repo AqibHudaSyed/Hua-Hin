@@ -1479,52 +1479,50 @@ p:last-child { margin-bottom: 0; }
 }
 
 /* ============================================================
-   HERO SECTION: ABSOLUTE CRITICAL SCROLL CENTERING FIX
+   HERO SECTION: EXACT COMPACT SCROLL ALIGNMENT
    ============================================================ */
 
-/* Main section ko target karna taaki coordinates page ke center se calculate hon */
 section.hero {
   position: relative;
 }
 
-/* Scroll wrapper ko pure screen framework ke exact center me lock karna */
 .scroll-indicator-wrap {
   position: absolute;
-  bottom: 25px;              /* Niche se distance standard position */
-  left: 50%;                 /* Pure page width ka exact mathematically half */
-  transform: translateX(-50%); /* Zero-error element width offset correction */
+  bottom: 20px;               /* Niche se distance kam kara */
+  left: 50%;
+  transform: translateX(-50%);
   text-align: center;
-  z-index: 99;               /* Buttons ke upar rahega */
+  z-index: 99;
   display: flex;
   flex-direction: column;
   align-items: center;
-  pointer-events: none;      /* Phone par button clicks ko block nahi karega */
+  pointer-events: none;
 }
 
 .scroll-text {
-  font-size: 0.7rem;         /* Chota aur elegant font jaisa screenshot me hai */
+  font-size: 0.62rem;         /* Font size ekdam chota aur compact jaisa aapko chahiye */
   text-transform: uppercase;
-  letter-spacing: 0.25em;    /* Alphabet spacing balance */
+  letter-spacing: 0.18em;     /* Spacing tight kari exact matching ke liye */
   color: var(--gold);
   font-weight: 500;
-  opacity: 0.8;
+  opacity: 0.75;              /* Subtle/halka look dene ke liye */
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 4px;         /* Text aur choti line ke beech ka gap */
 }
 
 .scroll-line {
   width: 1px;
-  height: 35px;              /* Standard length for desktop/tab */
+  height: 18px;               /* LINE KI HEIGHT POORI TARAHA SE CHOTI (18px) KAR DI */
   background: var(--gold);
-  opacity: 0.4;
+  opacity: 0.35;              /* Halka look taaki extra lamba na lage */
 }
 
-/* --- RESPONSIEV BREAKPOINTS (FOR MOBILE & TAB) --- */
+/* --- MOBILE RESPONSIVE CONTROL --- */
 @media (max-width: 768px) {
   .scroll-indicator-wrap {
-    bottom: 15px;            /* Mobile me buttons ke niche safe positioning */
+    bottom: 12px;             /* Mobile screen par aur unique positioning */
   }
   .scroll-line {
-    height: 22px;            /* Mobile screen par line halke se choti taaki overlap na ho */
+    height: 15px;             /* Mobile par aur thodi compact */
   }
 }
