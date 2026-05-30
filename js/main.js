@@ -497,3 +497,9 @@ async function loadDynamicServices() {
 }
 
 window.addEventListener('DOMContentLoaded', loadDynamicServices);
+
+// Automatically update copyright year (2026, 2027, 2028...)
+const yearSpan = document.getElementById('copyright-year');
+if (yearSpan) {
+  yearSpan.textContent = new Date().getFullYear();
+}
